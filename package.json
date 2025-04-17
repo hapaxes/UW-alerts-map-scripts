@@ -1,0 +1,16 @@
+{
+  "name": "uw-alerts-scraper",
+  "version": "1.0.0",
+  "description": "Cron job that scrapes and sends alerts from UW emergency site.",
+  "type": "module",
+  "dependencies": {
+    "@google/generative-ai": "^0.23.0",
+    "dotenv": "^16.4.7",
+    "resend": "^4.3.0",
+    "mongodb": "^6.5.0",
+    "puppeteer": "^21.6.0"
+  },
+  "scripts": {
+    "start": "node automatedScript.js"
+  }
+}
