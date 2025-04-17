@@ -1,0 +1,34 @@
+name: Run Scraper Every Hour
+
+on:
+  schedule:
+    - cron: "0 * * * *" # runs at minute 0 every hour (UTC)
+  workflow_dispatch: # allows manual triggering from GitHub UI
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run scraper script
+        run: node automatedScript.js
+        env:
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          GEMINI_API_KEY: ${{secrets.GEMINI_API_KEY}}
+          GOOGLE_MAPS_API_KEY: ${{secrets.GOOGLE_MAPS_API_KEY}}
+          MONGO_COLLECTION_LIGHT_DATA: ${{secrets.MONGO_COLLECTION_LIGHT_DATA}}
+          MONGO_COLLECTION_POST_HTML: ${secrets.MONGO_COLLECTION_POST_HTML}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          PERSONAL_EMAIL_ADDRESS: ${{ secrets.PERSONAL_EMAIL_ADDRESS }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
